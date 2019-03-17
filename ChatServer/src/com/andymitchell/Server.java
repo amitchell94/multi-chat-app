@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Server extends Thread{
 
     private final int serverPort;
-
     private ArrayList<ServerWorker> workerList = new ArrayList<>();
 
     public Server(int serverPort) {
@@ -34,5 +33,9 @@ public class Server extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void removeWorker(ServerWorker serverWorker) {
+        workerList.remove(serverWorker);
     }
 }
