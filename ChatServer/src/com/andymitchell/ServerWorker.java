@@ -33,7 +33,7 @@ public class ServerWorker extends Thread {
 
     private void handleClientSocket() throws IOException, InterruptedException {
         InputStream inputStream = clientSocket.getInputStream();
-         this.outputStream = clientSocket.getOutputStream();
+        this.outputStream = clientSocket.getOutputStream();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
@@ -60,6 +60,7 @@ public class ServerWorker extends Thread {
                 }
             }
         }
+        clientSocket.close();
     }
 
     private void handleLeave(String[] tokens) {
@@ -119,7 +120,7 @@ public class ServerWorker extends Thread {
         if (tokens.length == 3) {
             String login = tokens[1];
             String password = tokens[2];
-            if ((login.equals("guest") && login.equals("guest")) || (login.equals("andy") && login.equals("andy"))) {
+            if ((login.equals("guest") && password.equals("guest")) || (login.equals("andy") && password.equals("andy"))) {
                 String msg = "ok login\n";
                 outputStream.write(msg.getBytes());
                 this.login = login;
@@ -142,6 +143,7 @@ public class ServerWorker extends Thread {
             } else {
                 String msg = "error login\n";
                 outputStream.write(msg.getBytes());
+                System.err.println("Login failed for " + login);
             }
         }
     }
